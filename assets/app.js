@@ -6,7 +6,12 @@
  */
 
 // any CSS you import will output into a single css file (app.scss in this case)
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import './styles/app.scss';
+import './styles/app.css';
+
 import logoPath from './images/logo.png';
 
 let html = `<img src="${logoPath}" alt="logo">`;
