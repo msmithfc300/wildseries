@@ -1,0 +1,16 @@
+$primary: #2176FF;
+$secondary: #31393C;
+$primaryBtn: #FB6107;
+
+body {
+    color: $secondary !important;
+
+}
+
+.btn {
+
+    background-color: $primaryBtn !important;
+    color: white !important;
+}
+
+@import "~bootstrap/scss/bootstrap";
