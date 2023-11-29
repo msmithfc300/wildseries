@@ -23,6 +23,10 @@ class Programme
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Programme
     public function setPoster(?string $poster): static
     {
         $this->poster = $poster;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
