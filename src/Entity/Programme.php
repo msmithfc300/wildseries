@@ -23,7 +23,7 @@ class Programme
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'programmes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 

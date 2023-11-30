@@ -41,7 +41,7 @@ Class CategoryController extends AbstractController
         $programmes = $programmeRepository->findBy(
             ['category' => $category],
             ['id' => 'DESC'],
-            ["limit = 3"],
+            3,
         );
         return $this->render('category/show.html.twig', [
             'category' => $category,
