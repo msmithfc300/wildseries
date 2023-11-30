@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-
-{% block title %}Let's watch...{% endblock %}
-
+{% block title %}Series #{{ programme.id }}{% endblock %}
 
 {% block body %}
+    <div class="media">
+        <img class="align-self-start mr-3" src="{{programme.poster}}" alt="{{ programme.title }} poster">
+        <div class="media-body">
+            <h1 class="mt-0">{{ programme.title }}</h1>
+            <p>{{ programme.synopsis }}</p>
+            <p>Category : {{ programme.category.name }}</p>
+        </div>
+    </div>
 
-    <h1>Programme {{ id }}</h1>
-
+    <a href="{{ path('program_index') }}">
+        Return to the list of series
+    </a>
 {% endblock %}
