@@ -45,27 +45,49 @@ class ProgrammeFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::PROGRAMMES as $programmeDescription) {
-            $programme = new Programme();
 
-        $programme->setTitle($programmeDescription['title']);
+        $programme = new Programme();
+        $programme->setTitle('HeartStopper');
+        $programme->setSynopsis('two boys fall in love');
+        $programme->setCategory($this->getReference('category_Animation'));
+        $this->addReference('programme_HeartStopper', $programme);
+        $manager->persist($programme);
 
-        $programme->setSynopsis($programmeDescription['synopsis']);
+        $programme = new Programme();
+        $programme->setTitle('Lupin');
+        $programme->setSynopsis('Guy plays out stories from the book series Lupin');
+        $programme->setCategory($this->getReference('category_Action'));
+        $this->addReference('programme_Lupin', $programme);
+        $manager->persist($programme);
 
-        $programme->setCategory($this->getReference($programmeDescription['category']));
+        $programme = new Programme();
+        $programme->setTitle('Spaced');
+        $programme->setSynopsis('Flatmates in London');
+        $programme->setCategory($this->getReference('category_Action'));
+        $this->addReference('programme_Spaced', $programme);
+        $manager->persist($programme);
 
-        $this->addReference('programme_' . $programmeDescription['title'], $programme);
+        $programme = new Programme();
+        $programme->setTitle('Tokyo Vice');
+        $programme->setSynopsis('American journalist moves to Japan and writes about the Yakuza');
+        $programme->setCategory($this->getReference('category_Action'));
+        $this->addReference('programme_Tokyo_Vice', $programme);
+        $manager->persist($programme);
 
+        $programme = new Programme();
+        $programme->setTitle('Scooby Doo');
+        $programme->setSynopsis('Dog and his mates unmask master criminals');
+        $programme->setCategory($this->getReference('category_Horror'));
+        $this->addReference('programme_Scooby_Doo', $programme);
         $manager->persist($programme);
 
 
-    }
 
 $manager->flush();
 
 }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             CategoryFixtures::class,

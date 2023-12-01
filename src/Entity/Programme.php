@@ -5,13 +5,15 @@ namespace App\Entity;
 use App\Repository\ProgrammeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: ProgrammeRepository::class)]
 class Programme
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -26,6 +28,37 @@ class Programme
     #[ORM\ManyToOne(inversedBy: 'programmes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Season::class)]
+    private Collection $seasons;
+
+    public function __construct()
+    {
+        $this->seasons = new ArrayCollection();
+    }
+
+    public function addSeason(Season $season): void
+    {
+        if (!$this->seasons->contains($season)) {
+            $this->seasons[] = $season;
+            $season->setProgramme($this); // Set the current program to the season
+        }
+    }
+
+    public function removeSeason(Season $season): void
+    {
+        if ($this->seasons->removeElement($season)) {
+            // If the program was set on the season, set it to null
+            if ($season->getProgramme() === $this) {
+                $season->setProgramme(null);
+            }
+        }
+    }
+
+    public function getSeasons(): Collection
+    {
+        return $this->seasons;
+    }
 
     public function getId(): ?int
     {
@@ -73,7 +106,7 @@ class Programme
         return $this->category;
     }
 
-    public function setCategory(?Category $category): static
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
