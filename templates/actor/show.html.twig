@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ actor.name }}{% endblock %}
+
+{% block body %}
+    <div class="media">
+            <h1>{{ actor.name }}</h1>
+            <h2 class="mt-0">Appears in:</h2>
+        <ul>
+        {% for programme in actor.programmes %}
+            <li>{{ programme.title }}</li>
+        {% else %}
+
+            <li>No series found for this actor</li>
+                {%  endfor %}
+            </ul>
+        </div>
+
+
+
+
+
+
+
+    <a href="{{ path('program_index') }}">
+        Return to the list of series
+    </a>
+{% endblock %}

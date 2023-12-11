@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}All actors{% endblock %}
+
+
+{% block body %}
+
+    <h1>All the actors in the table actor: </h1>
+    {%  for actor in actors %}
+        <div>
+            <h2>{{ actor.name }} </h2>
+
+        </div>
+    {%  else %}
+        No actors found
+    {% endfor %}
+    <a href="{{ path('app_index') }}">
+        Return to the homepage
+    </a>
+{% endblock %}
+
