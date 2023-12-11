@@ -7,8 +7,14 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 
 #[ORM\Entity(repositoryClass: ProgrammeRepository::class)]
+
+#[UniqueEntity(('title'), message: 'ce titre existe déjà')]
 class Programme
 {
     #[ORM\Id]
@@ -17,9 +23,12 @@ class Programme
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
     private ?string $synopsis = null;
 
     #[ORM\Column(length: 255, nullable: true)]
