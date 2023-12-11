@@ -14,6 +14,7 @@ use App\Repository\ProgrammeRepository;
 use App\Form\ProgrammeType;
 use App\Entity\Programme;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/program', name: 'program_')]
 Class ProgramController extends AbstractController
@@ -32,9 +33,9 @@ Class ProgramController extends AbstractController
 
     }
 
-    #[Route('/new', name: 'new')]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
 
-    public function new(Request $request, EntityManagerInterface $entityManager) : Response
+    public function new(Request $request, ProgrammeRepository $programmeRepository, EntityManagerInterface $entityManager) : Response
 
     {
 
@@ -49,6 +50,7 @@ Class ProgramController extends AbstractController
             $entityManager->persist($programme);
 
             $entityManager->flush();
+            $this->addFlash('success', 'The new series has been added!');
 
 
             // Redirect to categories list
