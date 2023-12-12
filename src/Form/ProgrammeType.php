@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Actor;
+
 
 class ProgrammeType extends AbstractType
 {
@@ -22,6 +24,9 @@ class ProgrammeType extends AbstractType
             ->add('poster', TextType::class)
             ->add('category', EntityType::class, ['class' => Category::class,
                 'choice_label' => 'name',])
+            ->add('actors', EntityType::class, ['class' => Actor::class,
+                'choice_label' => 'name', 'multiple' => true, 'expanded' => true, 'by_reference' => false,
+            ]);
         ;
     }
 
