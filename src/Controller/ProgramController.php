@@ -15,6 +15,7 @@ use App\Form\ProgrammeType;
 use App\Entity\Programme;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/program', name: 'program_')]
 Class ProgramController extends AbstractController
@@ -34,8 +35,7 @@ Class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-
-    public function new(Request $request, ProgrammeRepository $programmeRepository, EntityManagerInterface $entityManager) : Response
+    public function new(Request $request, ProgrammeRepository $programmeRepository, EntityManagerInterface $entityManager): Response
 
     {
 
@@ -45,7 +45,7 @@ Class ProgramController extends AbstractController
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted()  && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager->persist($programme);
 
@@ -58,7 +58,6 @@ Class ProgramController extends AbstractController
             return $this->redirectToRoute('index');
 
 
-
         }
 
         return $this->render('program/new.html.twig', [
@@ -66,19 +65,18 @@ Class ProgramController extends AbstractController
             'form' => $form->createView()]);
 
     }
+
     #[Route('/show/{id<^[0-9]+$>}', name: 'show')]
-    public function show(int $id, ProgrammeRepository $programmeRepository, SeasonRepository $seasonRepository):Response
+    public function show(int $id, ProgrammeRepository $programmeRepository, SeasonRepository $seasonRepository): Response
     {
         $programme = $programmeRepository->findOneBy(['id' => $id]);
 
 
         if (!$programme) {
             throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in programme\'s table.'
+                'No program with id : ' . $id . ' found in programme\'s table.'
             );
         }
-
-
 
 
         return $this->render('program/show.html.twig', [
@@ -105,4 +103,6 @@ Class ProgramController extends AbstractController
         ]);
 
     }
+
+
 }
